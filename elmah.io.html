@@ -27,33 +27,33 @@
 <p>
 
 <code>
-    #r @"elmah.corelibrary.1.2.2\lib\Elmah.dll"
-    #r @"elmah.io.core.1.0.0.33\lib\net40\Elmah.IO.dll"
-
-    open System
-    open System.Collections.Generic
-    open Elmah
-    type ErrorLog = Elmah.Io.ErrorLog
-
-    let config = new Dictionary<string, string>()
-    config.Add( "LogId", "82021200-d9e1-4958-bcbd-1a66c7724289")
-
-    let  log = new Elmah.Io.ErrorLog(config)
-
-    try
-    let doSomethingNasty = 185/0
-    doSomethingNasty.ToString()
-    with
-    | exn ->
-        let err = Error exn
-        err.Time <- datetime.now
-        err.applicationname <- "Petulant cub"
-        let logTask =
-           Async.FromBeginEnd(err, log.BeginLog, log.EndLog)
-           |> Async.StartAsTask
-
-    logTask.Result
-
+    #r @"elmah.corelibrary.1.2.2\lib\Elmah.dll"  
+    #r @"elmah.io.core.1.0.0.33\lib\net40\Elmah.IO.dll"  
+  
+    open System  
+    open System.Collections.Generic  
+    open Elmah  
+    type ErrorLog = Elmah.Io.ErrorLog  
+  
+    let config = new Dictionary<string, string>()  
+    config.Add( "LogId", "82021200-d9e1-4958-bcbd-1a66c7724289")  
+  
+    let  log = new Elmah.Io.ErrorLog(config)  
+  
+    try  
+    let doSomethingNasty = 185/0  
+    doSomethingNasty.ToString()  
+    with  
+    | exn   ->
+        let   err = Error exn
+        err.Time <- datetime.now  
+        err.applicationname <- "Petulant cub"  
+        let logTask =  
+           Async.FromBeginEnd(err, log.BeginLog, log.EndLog)  
+           |> Async.StartAsTask  
+  
+    logTask.Result  
+  
 
 </code>
 
